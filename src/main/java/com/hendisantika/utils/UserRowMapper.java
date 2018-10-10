@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.hendisantika.utils;
 
@@ -11,11 +11,10 @@ import java.sql.SQLException;
 
 /**
  * @author hendisantika
- *
  */
-public class UserRowMapper implements RowMapper<User>{
+public class UserRowMapper implements RowMapper<User> {
 
-	 @Override
+    @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setUserId(rs.getInt("userId"));
