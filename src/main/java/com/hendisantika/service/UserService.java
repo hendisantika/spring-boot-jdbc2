@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.hendisantika.service;
 
@@ -21,31 +21,29 @@ import java.util.List;
 
 /**
  * @author hendisantika
- *
  */
 @Service
 public class UserService {
-	
-	@Autowired
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
- 
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     public List<User> findAll() {
-        return jdbcTemplate.query("select * from users", 
+        return jdbcTemplate.query("select * from users",
                 new UserRowMapper());
     }
- 
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     public User findUserById(int id) {
         return jdbcTemplate.queryForObject(
-            "select * from users where userId=?",
-            new Object[]{id}, new UserRowMapper());
+                "select * from users where userId=?",
+                new Object[]{id}, new UserRowMapper());
     }
- 
-    public User create(final User user) 
-    {
+
+    public User create(final User user) {
         final String sql = "insert into users(userId,userName,userEmail,address) values(?,?,?,?)";
- 
+
         KeyHolder holder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
@@ -58,7 +56,7 @@ public class UserService {
                 return ps;
             }
         }, holder);
- 
+
         int newUserId = holder.getKey().intValue();
         user.setUserId(newUserId);
         return user;
